@@ -52,5 +52,4 @@ EFI_FILE_HANDLE GetVolume(EFI_HANDLE ImageHandle) {
     }
 
     return Volume;
-
 } // End of file

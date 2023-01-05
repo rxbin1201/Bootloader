@@ -69,7 +69,5 @@ UINT8 *ReadFile(EFI_FILE_HANDLE Volume, CHAR16 *FileName) {
         Print(L"Could not close file! Reason: %r\n", Status);
     }
 
-    Print(L"Test:\n %a\n", Buffer);
-
     return Buffer;
 } // End of file
