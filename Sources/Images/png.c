@@ -6,6 +6,7 @@
 
 // Import libraries
 #include <Images/png.h>
+#include <Images/stb_image_include.h>
 
 EFI_STATUS DrawPNGImage(EFI_HANDLE ImageHandle, CHAR16 *PngFileName) {
 
@@ -28,11 +29,13 @@ EFI_STATUS DrawPNGImage(EFI_HANDLE ImageHandle, CHAR16 *PngFileName) {
     s.read_from_callbacks = 0;
     s.img_buffer = s.img_buffer_original = PngBuffer;
     s.img_buffer = s.img_buffer_original_end = PngBuffer + PngBufferSize;
-    Data = (UINT32*)stbi__png_load(&s, &w, &h, &l, 4, &ri);
+
+    Data = (UINT32*)stbi__png_load(&s, &w, &h, &l, 4, &ri); // Stucks here
     if(!Data) {
         Print(L"Unable to decode png: %s\n", stbi__g_failure_reason);
         return EFI_LOAD_ERROR;
     }
+
 
     // PNG is RGBA but UEFI needs BGRA
     if(GraphicsOutput->Mode->Info->PixelFormat == PixelBlueGreenRedReserved8BitPerColor || (GraphicsOutput->Mode->Info->PixelFormat == PixelBitMask && GraphicsOutput->Mode->Info->PixelInformation.BlueMask != 0xFF0000)) {

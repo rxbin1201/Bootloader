@@ -7,8 +7,6 @@
 #ifndef __PNG_H
 #define __PNG_H
 
-#define STB_IMAGE_IMPLEMENTATION
-
 // Import libraries
 #include <efi.h>
 #include <efilib.h>
@@ -17,7 +15,6 @@
 #include <File/file.h>
 #include <File/volume.h>
 #include <Protocols/gop.h>
-#include <Images/stb_image.h>
 
 EFI_STATUS DrawPNGImage(EFI_HANDLE ImageHandle, CHAR16 *FileName);
 
