@@ -11,6 +11,7 @@
 #include <File/volume.h>
 #include <File/file.h>
 #include <Images/png.h>
+#include <Images/tga.h>
 #include <config.h>
 
 
@@ -23,8 +24,8 @@ efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 
     // Declare variables
     EFI_STATUS Status;
-    //UINT8 *ImageTgaBuffer;
-    //UINTN ImageTgaBufferSize;
+    UINT8 *ImageTgaBuffer;
+    UINTN ImageTgaBufferSize;
 
     Status = InitGraphicsOutputProtocol();
     if(EFI_ERROR(Status)) {
@@ -39,7 +40,7 @@ efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
         Print(L"Error init boot.cfg! Reason: %r\n", Status);
     }
 
-    /*Print(L"Check tga header...\n");
+    Print(L"Check tga header...\n");
 
     ImageTgaBuffer = LoadTgaImage(ImageHandle, L"image.tga");
     if(ImageTgaBuffer != NULL) {
@@ -49,12 +50,14 @@ efi_main(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 
         DrawTgaImage(ImageTgaBuffer, ImageTgaBufferSize);
     }
-    */
 
-    Status = DrawPNGImage(ImageHandle, L"image.png");
+
+    /*Status = DrawPNGImage(ImageHandle, L"image.png");
     if(EFI_ERROR(Status)) {
         Print(L"Error png! Reason: %r\n", Status);
-    }
+    }*/
+
+    //Print(L"TEST!");
 
     while(1){};
 

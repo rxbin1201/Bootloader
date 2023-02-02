@@ -56,10 +56,9 @@ typedef struct
 #define STBI_ASSERT(v)
 #define STBI_NOTUSED(v)  (void)sizeof(v)
 #define STBI__BYTECAST(x)  ((unsigned char) ((x) & 255))
-#define STBI_MALLOC(sz)           malloc(sz)
-#define STBI_REALLOC(p,newsz)     realloc(p,newsz)
-#define STBI_FREE(p)              free(p)
-#define STBI_REALLOC_SIZED(p,oldsz,newsz) STBI_REALLOC(p,newsz)
+#define STBI_MALLOC(sz)           AllocatePool(sz)
+#define STBI_FREE(p)              FreePool(p)
+#define STBI_REALLOC_SIZED(p,oldsz,newsz) ReallocatePool(p,oldsz,newsz)
 
 void *stbi__png_load(stbi__context *s, int *x, int *y, int *comp, int req_comp, stbi__result_info *ri);
 unsigned char *stbi_write_png_to_mem(const unsigned char *pixels, int stride_bytes, int x, int y, int n, int *out_len);

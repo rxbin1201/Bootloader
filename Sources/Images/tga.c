@@ -1,13 +1,13 @@
 /*
 
-    tga.c - 02.01.23
+    tga.c - 02.02.23
 
 */
 
 // Import libraries
 #include <Images/tga.h>
 
-// TgaParse funciton from https://wiki.osdev.org/Loading_Icons
+// TgaParse function
 UINT32 *TgaParse(unsigned char *ptr, int size) {
 
     unsigned int *data;
@@ -18,9 +18,9 @@ UINT32 *TgaParse(unsigned char *ptr, int size) {
 
     Print(L"Tga1\n");
  
-    data = (unsigned int*)malloc((w*h+2)*sizeof(unsigned int));
+    data = (unsigned int*)AllocatePool((w*h+2)*sizeof(unsigned int));
     if(!data) {
-        Print(L"Error: Unable to allocate memory with malloc\n");
+        Print(L"Error: Unable to allocate memory\n");
         return NULL;
     }
  
@@ -28,7 +28,7 @@ UINT32 *TgaParse(unsigned char *ptr, int size) {
 
     switch(ptr[2]) {
         case 1:
-            if(ptr[6]!=0 || ptr[4]!=0 || ptr[3]!=0 || (ptr[7]!=24 && ptr[7]!=32)) { free(data); return NULL; }
+            if(ptr[6]!=0 || ptr[4]!=0 || ptr[3]!=0 || (ptr[7]!=24 && ptr[7]!=32)) { FreePool(data); return NULL; }
             for(y=i=0; y<h; y++) {
                 k = ((!o?h-y-1:y)*w);
                 for(x=0; x<w; x++) {
@@ -38,7 +38,7 @@ UINT32 *TgaParse(unsigned char *ptr, int size) {
             }
             break;
         case 2:
-            if(ptr[5]!=0 || ptr[6]!=0 || ptr[1]!=0 || (ptr[16]!=24 && ptr[16]!=32)) { free(data); return NULL; }
+            if(ptr[5]!=0 || ptr[6]!=0 || ptr[1]!=0 || (ptr[16]!=24 && ptr[16]!=32)) { FreePool(data); return NULL; }
             for(y=i=0; y<h; y++) {
                 j = ((!o?h-y-1:y)*w*(ptr[16]>>3));
                 for(x=0; x<w; x++) {
@@ -48,7 +48,7 @@ UINT32 *TgaParse(unsigned char *ptr, int size) {
             }
             break;
         case 9:
-            if(ptr[6]!=0 || ptr[4]!=0 || ptr[3]!=0 || (ptr[7]!=24 && ptr[7]!=32)) { free(data); return NULL; }
+            if(ptr[6]!=0 || ptr[4]!=0 || ptr[3]!=0 || (ptr[7]!=24 && ptr[7]!=32)) { FreePool(data); return NULL; }
             y = i = 0;
             for(x=0; x<w*h && m<size;) {
                 k = ptr[m++];
@@ -70,7 +70,7 @@ UINT32 *TgaParse(unsigned char *ptr, int size) {
             }
             break;
         case 10:
-            if(ptr[5]!=0 || ptr[6]!=0 || ptr[1]!=0 || (ptr[16]!=24 && ptr[16]!=32)) { free(data); return NULL; }
+            if(ptr[5]!=0 || ptr[6]!=0 || ptr[1]!=0 || (ptr[16]!=24 && ptr[16]!=32)) { FreePool(data); return NULL; }
             y = i = 0;
             for(x=0; x<w*h && m<size;) {
                 k = ptr[m++];
