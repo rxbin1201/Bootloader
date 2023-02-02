@@ -92,7 +92,7 @@ UINT32 *TgaParse(unsigned char *ptr, int size) {
             }
             break;
         default:
-            free(data); return NULL;
+            FreePool(data); return NULL;
     }
 
     Print(L"Tga3\n");
